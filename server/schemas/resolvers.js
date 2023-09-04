@@ -3,8 +3,8 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        me: async () => {
-            return User.findOne({_id: pro})
+        me: async (parent, {_id}) => {
+            return User.findOne({_id: _id})
         }
     },
 
