@@ -52,7 +52,17 @@ const resolvers = {
             throw AuthenticationError;
         },
         removeBook:  async (parent, {bookId}, context) => {
+            if (context.user) {
+                const user = await User.findOne({_id: context.user._id});
 
+                const bookIndex = user.savedBooks.map( (book) => book.bookId).indexOf(bookId);
+                user.savedBooks.splice(bookIndex, 1);
+                await user.save();
+
+                return user;
+            }
+
+            throw AuthenticationError;
         }
     }
 }
