@@ -31,7 +31,13 @@ const resolvers = {
             return { token, userData };
         },
         addUser:  async (parent, {username, email, password}) => {
+            // create new user
+            const newUser = await User.create({username, email, password});
+            
+            // signing up also includes logging in, so we create a token for their session
+            const token = signToken(newUser);
 
+            return {token, newUser};
         },
         saveBook:  async (parent, {input}) => {
 
