@@ -3,7 +3,7 @@ const typeDefs =`
         _id: ID
         username: String
         email: String
-        bookCount: Number
+        bookCount: Int
         savedBooks: [Book]
     }
 
@@ -40,4 +40,6 @@ const typeDefs =`
         saveBook(input: newBook): User
         removeBook(bookId: String!): User
     }
-`
+`;
+
+module.exports = typeDefs

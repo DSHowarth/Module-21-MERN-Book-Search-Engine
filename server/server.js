@@ -20,6 +20,10 @@ const server = new ApolloServer({
 
 // declaring function for server startup
 const startApolloServer = async () => {
+  
+  // start the Apollo Server instance
+  await server.start();
+
   // still using express data processing 
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
