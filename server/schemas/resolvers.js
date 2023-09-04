@@ -39,10 +39,19 @@ const resolvers = {
 
             return {token, newUser};
         },
-        saveBook:  async (parent, {input}) => {
+        saveBook:  async (parent, {input}, context) => {
+            if (context.user) {
+                const user = await User.findOne({_id: context.user._id});
 
+                user.savedBooks.push(input);
+                await user.save();
+
+                return user;
+            }
+
+            throw AuthenticationError;
         },
-        removeBook:  async (parent, {bookId}) => {
+        removeBook:  async (parent, {bookId}, context) => {
 
         }
     }
