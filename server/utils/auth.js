@@ -15,21 +15,24 @@ module.exports = {
       token = token.split(' ').pop().trim();
     }
 
+    // if no token is found, add nothing to the req object
     if (!token) {
       return req;
     }
 
     // verify token and get user data out of it
     try {
+      // if the user matches the token, add user data to req object for use by server
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
     } catch {
       console.log('Invalid token');
     }
 
-    // send to next endpoint
+    // no longer using next, as this function isn't the middleware anymore, expressMiddleware is.
     return req;
   },
+  // signToken function unchanged
   signToken: function ({ username, email, _id }) {
     const payload = { username, email, _id };
 
