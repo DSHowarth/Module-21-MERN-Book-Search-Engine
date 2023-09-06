@@ -21,7 +21,7 @@ const resolvers = {
             }
 
             // use User virtual to confirm password is correct
-            const pwCheck = await profile.isCorrectPassword(password);
+            const pwCheck = await userData.isCorrectPassword(password);
             if (!pwCheck) {
                 throw AuthenticationError;
             }
