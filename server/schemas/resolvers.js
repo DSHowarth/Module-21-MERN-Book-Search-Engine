@@ -31,10 +31,8 @@ const resolvers = {
             return { token, userData };
         },
         addUser:  async (parent, {username, email, password}) => {
-            console.log('made it into adduser resolver')
             // create new user
             const newUser = await User.create({username, email, password});
-            console.log(newUser)
             // signing up also includes logging in, so we create a token for their session
             const token = signToken(newUser);
 
@@ -42,9 +40,11 @@ const resolvers = {
         },
         saveBook:  async (parent, {input}, context) => {
             if (context.user) {
+                console.log('context accessed')
                 const user = await User.findOne({_id: context.user._id});
-
+                console.log(user)
                 user.savedBooks.push(input);
+                console.log('pushed')
                 await user.save();
 
                 return user;
