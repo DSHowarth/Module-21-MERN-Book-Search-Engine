@@ -31,9 +31,10 @@ const resolvers = {
             return { token, userData };
         },
         addUser:  async (parent, {username, email, password}) => {
+            console.log('made it into adduser resolver')
             // create new user
             const newUser = await User.create({username, email, password});
-            
+            console.log(newUser)
             // signing up also includes logging in, so we create a token for their session
             const token = signToken(newUser);
 
@@ -68,3 +69,6 @@ const resolvers = {
         }
     }
 }
+
+
+module.exports = resolvers;
