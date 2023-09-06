@@ -34,10 +34,11 @@ const SignupForm = () => {
 
     try {
       await addNewUser(userFormData)
-      setShowAlert(true);
-    } catch {
-      console.log(error)
+      console.log('new user added')
+    } catch (err) {
+      console.log(err)
     }
+
     // try {
     //   const response = await createUser(userFormData);
 
