@@ -33,7 +33,7 @@ const SignupForm = () => {
     }
 
     try {
-      await addNewUser(userFormData)
+      await addNewUser({variables: userFormData})
       console.log('new user added')
     } catch (err) {
       console.log(err)
