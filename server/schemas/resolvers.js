@@ -55,8 +55,10 @@ const resolvers = {
             if (context.user) {
                 const user = await User.findOne({_id: context.user._id});
 
+                // find index of book in question, remove it
                 const bookIndex = user.savedBooks.map( (book) => book.bookId).indexOf(bookId);
                 user.savedBooks.splice(bookIndex, 1);
+
                 await user.save();
 
                 return user;
