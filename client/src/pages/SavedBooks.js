@@ -19,7 +19,8 @@ import { REMOVE_BOOK } from '../utils/mutations';
 const SavedBooks = () => {
   // const [userData, setUserData] = useState({});
 
-  const {loading, userData} = useQuery(GET_ME)
+  const { loading, data } = useQuery(GET_ME)
+  const userData = data.me;
   const [removeBook, results] = useMutation(REMOVE_BOOK, {
     refetchQueries: [
       GET_ME,
@@ -28,7 +29,7 @@ const SavedBooks = () => {
   })
 
   // use this to determine if `useEffect()` hook needs to run again
-  const userDataLength = Object.keys(userData).length;
+  // const userDataLength = Object.keys(userData).length;
 
   // useEffect(() => {
   //   const getUserData = async () => {
@@ -65,8 +66,8 @@ const SavedBooks = () => {
 
     try {
       await removeBook(bookId)
-    } catch {
-      console.log(results.error)
+    } catch (err) {
+      console.log(err)
     }
 
     // try {
@@ -86,7 +87,7 @@ const SavedBooks = () => {
   };
 
   // if data isn't here yet, say so
-  if (!userDataLength) {
+  if (loading) {
     return <h2>LOADING...</h2>;
   }
 
