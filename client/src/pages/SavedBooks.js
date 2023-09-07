@@ -24,7 +24,7 @@ const SavedBooks = () => {
   const [removeBook, results] = useMutation(REMOVE_BOOK, {
     refetchQueries: [
       GET_ME,
-      'me'
+      'myProfile'
     ]
   })
 
@@ -65,7 +65,7 @@ const SavedBooks = () => {
     }
 
     try {
-      await removeBook(bookId)
+      await removeBook({variables: {bookId: bookId}})
     } catch (err) {
       console.log(err)
     }

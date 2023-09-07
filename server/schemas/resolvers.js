@@ -56,13 +56,16 @@ const resolvers = {
             throw AuthenticationError;
         },
         removeBook:  async (parent, {bookId}, context) => {
+            console.log('entered removebook')
             if (context.user) {
+                console.log('entered remove')
                 const user = await User.findOne({_id: context.user._id});
-
+                console.log(user)
                 // find index of book in question, remove it
                 const bookIndex = user.savedBooks.map( (book) => book.bookId).indexOf(bookId);
+                console.log(bookIndex)
                 user.savedBooks.splice(bookIndex, 1);
-
+                console.log(user)
                 await user.save();
 
                 return user;
