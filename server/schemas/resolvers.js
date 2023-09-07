@@ -39,13 +39,15 @@ const resolvers = {
 
             return {token, newUser};
         },
-        saveBook:  async (parent, {input}, context) => {
+        saveBook:  async (parent, args, context) => {
             if (context.user) {
+                console.log(args)
                 console.log('context accessed')
                 const user = await User.findOne({_id: context.user._id});
                 console.log(user)
-                user.savedBooks.push(input);
-                console.log('pushed')
+                user.savedBooks.push(args.input);
+                console.log('pushed?')
+                console.log(user)
                 await user.save();
 
                 return user;
