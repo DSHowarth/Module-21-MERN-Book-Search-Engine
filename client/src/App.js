@@ -6,6 +6,8 @@ import Navbar from './components/Navbar';
 import { ApolloClient, InMemoryCache, ApolloProvider, createHttpLink} from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 
+// httpLink and authLink are copied straight from the Apollo docs.
+// they help ensure that all requests coming from the client include their token, if it exists
 const httpLink = createHttpLink({
   uri: '/graphql',
 });

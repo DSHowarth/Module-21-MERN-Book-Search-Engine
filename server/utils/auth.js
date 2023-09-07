@@ -15,19 +15,15 @@ module.exports = {
   // function for our authenticated routes
   authMiddleware: function ({req}) {
     // allows token to be sent via  req.query or headers
-    console.log('accessed middleware')
     let token = req.headers.authorization;
-    console.log(token)
+
     // ["Bearer", "<tokenvalue>"]
     if (req.headers.authorization) {
-      console.log('entered split token')
       token = token.split(' ').pop().trim();
-      console.log('split token')
     }
 
     // if no token is found, add nothing to the req object
     if (!token) {
-      console.log('no token found')
       return req;
     }
 

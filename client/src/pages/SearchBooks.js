@@ -17,7 +17,9 @@ import { SAVE_BOOK } from '../utils/mutations';
 
 const SearchBooks = () => {
 
+  // create book save mutation hook
   const [saveNewBook, {data, loading, error}] = useMutation(SAVE_BOOK)
+
   // create state for holding returned google api data
   const [searchedBooks, setSearchedBooks] = useState([]);
   // create state for holding our search field data
@@ -56,8 +58,6 @@ const SearchBooks = () => {
         image: book.volumeInfo.imageLinks?.thumbnail || '',
       }));
 
-      console.log(bookData)
-
       setSearchedBooks(bookData);
       setSearchInput('');
     } catch (err) {
@@ -67,6 +67,7 @@ const SearchBooks = () => {
 
   // create function to handle saving a book to our database
   const handleSaveBook = async (bookId) => {
+
     // find the book in `searchedBooks` state by the matching id
     const bookToSave = searchedBooks.find((book) => book.bookId === bookId);
 
@@ -78,27 +79,13 @@ const SearchBooks = () => {
     }
     
     try {
-
+      // execute save book mutation
       const response = await saveNewBook({variables: {input: bookToSave}});
-      console.log(response)
+      // add saved book to state variable to change the 'save' button on the page
       setSavedBookIds([...savedBookIds, bookToSave.bookId]);
     } catch (err) {
       console.error(err);
     }
-
-    // try {
-    //   const response = await saveBook(bookToSave, token);
-
-    //   if (!response.ok) {
-    //     throw new Error('something went wrong!');
-    //   }
-
-    //   // if book successfully saves to user's account, save book id to state
-    //   setSavedBookIds([...savedBookIds, bookToSave.bookId]);
-    // } catch (err) {
-    //   console.error(err);
-    // }
-
 
   };
 

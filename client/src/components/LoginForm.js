@@ -9,6 +9,7 @@ import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 
 const LoginForm = () => {
+  //login mutation initializer
   const [userLogin, {data, loading, error}] = useMutation(LOGIN_USER);
 
   const [userFormData, setUserFormData] = useState({ email: '', password: '' });
@@ -31,9 +32,10 @@ const LoginForm = () => {
     }
 
     try {
-
+      // perform login mutation
       const { data } = await userLogin({variables: userFormData})
 
+      // if successful, add token to local storage
       Auth.login(data.login.token);
     } catch (err) {
       console.error(err);
