@@ -20,7 +20,7 @@ const SavedBooks = () => {
   // const [userData, setUserData] = useState({});
 
   const { loading, data } = useQuery(GET_ME)
-  const userData = data.me;
+  const userData = data?.me
   const [removeBook, results] = useMutation(REMOVE_BOOK, {
     refetchQueries: [
       GET_ME,
